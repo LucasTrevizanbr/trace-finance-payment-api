@@ -5,7 +5,7 @@ import com.payment.application.controller.request.PostWalletRequest
 import com.payment.application.controller.response.WalletLimitResponseDTO
 import com.payment.application.controller.response.CreateWalletResponseDTO
 import com.payment.application.extension.toResponse
-import com.payment.application.extension.toResponseLimit
+import com.payment.application.extension.toResponseLimitValue
 import com.payment.domain.service.WalletService
 import com.payment.application.extension.toWalletModel
 import org.springframework.http.HttpStatus
@@ -36,6 +36,6 @@ class WalletController (
     @GetMapping("/{walletId}/limits")
     fun getLimits(@PathVariable walletId:UUID) : ResponseEntity<WalletLimitResponseDTO> {
         val wallet = walletService.getLimitsById(walletId)
-        return ResponseEntity.ok(wallet.toResponseLimit());
+        return ResponseEntity.ok(wallet.toResponseLimitValue());
     }
 }

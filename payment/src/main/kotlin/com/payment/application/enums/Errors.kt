@@ -1,4 +1,4 @@
-package com.payment.application.enum
+package com.payment.application.enums
 
 enum class Errors (
     val code:String,

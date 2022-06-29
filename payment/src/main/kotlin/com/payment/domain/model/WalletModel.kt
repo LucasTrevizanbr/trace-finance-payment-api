@@ -15,5 +15,8 @@ data class WalletModel(
     val ownerName: String,
 
     @Column
-    var limit_value: BigDecimal = BigDecimal.ZERO
+    var limitValue: BigDecimal = BigDecimal.ZERO,
+
+    @OneToMany(mappedBy = "wallet", fetch = FetchType.LAZY)
+    val dailyPayments: List<DiaryPaymentModel>?
 )
