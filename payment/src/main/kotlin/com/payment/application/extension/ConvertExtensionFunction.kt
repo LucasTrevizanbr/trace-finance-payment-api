@@ -2,7 +2,7 @@ package com.payment.application.extension
 
 import com.payment.application.controller.request.PostWalletRequest
 import com.payment.application.controller.response.WalletLimitResponseDTO
-import com.payment.application.controller.response.WalletResponseDTO
+import com.payment.application.controller.response.CreateWalletResponseDTO
 import com.payment.domain.model.WalletModel
 
 fun PostWalletRequest.toWalletModel(): WalletModel{
@@ -11,8 +11,9 @@ fun PostWalletRequest.toWalletModel(): WalletModel{
         ownerName = this.ownerName
     )
 }
-fun WalletModel.toResponse(): WalletResponseDTO {
-    return WalletResponseDTO(
+
+fun WalletModel.toResponse(): CreateWalletResponseDTO {
+    return CreateWalletResponseDTO(
         id = this.id,
         ownerName = this.ownerName,
     )

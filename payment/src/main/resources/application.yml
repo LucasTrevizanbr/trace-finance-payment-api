@@ -5,6 +5,9 @@ spring:
     password: ${DB_PASSWORD}
   jackson:
     default-property-inclusion: non_null
+  mvc:
+    pathmatch:
+      matching-strategy: ant-path-matcher
   jpa:
     properties:
       hibernate:
