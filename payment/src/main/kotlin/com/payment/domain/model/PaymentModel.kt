@@ -5,12 +5,13 @@ import java.math.BigDecimal
 import java.time.LocalDateTime
 import javax.persistence.*
 
-@Entity(name = "DIARY_PAYMENT")
-data class DiaryPaymentModel(
+@Entity
+@Table(name = "payment")
+data class PaymentModel(
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val id: Long?,
+    val id: Long ?,
 
     @Enumerated(EnumType.STRING)
     @Column
@@ -23,7 +24,5 @@ data class DiaryPaymentModel(
     val paymentDateTime : LocalDateTime,
 
     @ManyToOne
-    val wallet: WalletModel?
-) {
-
-}
+    var wallet: WalletModel ?
+)

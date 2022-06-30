@@ -1,6 +1,6 @@
 package com.payment.application.exception
 
-class NotFoundException(
+class WalletLimitReachedException (
     override val message: String,
-    val errorCode: String
+    val errorCode : String
 ) : Exception()

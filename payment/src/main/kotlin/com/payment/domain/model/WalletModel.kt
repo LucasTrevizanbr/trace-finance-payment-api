@@ -4,7 +4,8 @@ import java.math.BigDecimal
 import java.util.*
 import javax.persistence.*
 
-@Entity(name = "wallet")
+@Entity
+@Table(name = "wallet")
 data class WalletModel(
 
     @Id
@@ -15,8 +16,8 @@ data class WalletModel(
     val ownerName: String,
 
     @Column
-    var limitValue: BigDecimal = BigDecimal.ZERO,
+    var limitValue: BigDecimal = BigDecimal("5000.00"),
 
     @OneToMany(mappedBy = "wallet", fetch = FetchType.LAZY)
-    val dailyPayments: List<DiaryPaymentModel>?
+    val payments: List<PaymentModel>?
 )

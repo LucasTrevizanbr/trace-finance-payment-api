@@ -14,18 +14,6 @@ import java.time.format.DateTimeParseException
 @RestControllerAdvice
 class ControllerAdvice {
 
-    @ExceptionHandler(NotFoundException::class)
-    fun handleNotFoundException(ex: NotFoundException, request: WebRequest) : ResponseEntity<ErrorResponse> {
-        val error = ErrorResponse(
-            httpCode = HttpStatus.NOT_FOUND.value(),
-            message = ex.message,
-            internalCode = ex.errorCode,
-            errors = null
-        )
-
-        return ResponseEntity(error, HttpStatus.NOT_FOUND)
-    }
-
     @ExceptionHandler(MethodArgumentNotValidException::class)
     fun handleMethodArgumentNotValidException(ex: MethodArgumentNotValidException, request: WebRequest): ResponseEntity<ErrorResponse> {
         val error = ErrorResponse(
@@ -50,6 +38,42 @@ class ControllerAdvice {
         )
 
         return ResponseEntity(error, HttpStatus.BAD_REQUEST)
+    }
+
+    @ExceptionHandler(PeriodLimitReachedException::class)
+    fun handleLimitReachedException(ex: PeriodLimitReachedException, request: WebRequest): ResponseEntity<ErrorResponse> {
+        val error = ErrorResponse(
+            httpCode = HttpStatus.BAD_REQUEST.value(),
+            message = ex.message,
+            internalCode = ex.errorCode,
+            errors = null
+        )
+
+        return ResponseEntity(error, HttpStatus.BAD_REQUEST)
+    }
+
+    @ExceptionHandler(WalletLimitReachedException::class)
+    fun handleLimitReachedException(ex: WalletLimitReachedException, request: WebRequest): ResponseEntity<ErrorResponse> {
+        val error = ErrorResponse(
+            httpCode = HttpStatus.BAD_REQUEST.value(),
+            message = ex.message,
+            internalCode = ex.errorCode,
+            errors = null
+        )
+
+        return ResponseEntity(error, HttpStatus.BAD_REQUEST)
+    }
+
+    @ExceptionHandler(NotFoundException::class)
+    fun handleNotFoundException(ex: NotFoundException, request: WebRequest) : ResponseEntity<ErrorResponse> {
+        val error = ErrorResponse(
+            httpCode = HttpStatus.NOT_FOUND.value(),
+            message = ex.message,
+            internalCode = ex.errorCode,
+            errors = null
+        )
+
+        return ResponseEntity(error, HttpStatus.NOT_FOUND)
     }
 
 }

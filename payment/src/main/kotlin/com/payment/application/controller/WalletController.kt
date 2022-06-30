@@ -6,8 +6,9 @@ import com.payment.application.controller.response.WalletLimitResponseDTO
 import com.payment.application.controller.response.CreateWalletResponseDTO
 import com.payment.application.extension.toResponse
 import com.payment.application.extension.toResponseLimitValue
-import com.payment.domain.service.WalletService
+import com.payment.domain.service.wallet.CrudWalletService
 import com.payment.application.extension.toWalletModel
+import com.payment.domain.service.payment.MakePaymentService
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
@@ -18,8 +19,15 @@ import javax.validation.Valid
 @RestController
 @RequestMapping("wallets")
 class WalletController (
-    val walletService: WalletService
+    val walletService: CrudWalletService,
+    val paymentService: MakePaymentService
 ) {
+
+    @GetMapping("/{walletId}/limits")
+    fun getLimits(@PathVariable walletId:UUID) : ResponseEntity<WalletLimitResponseDTO> {
+        val wallet = walletService.getLimitsById(walletId)
+        return ResponseEntity.ok(wallet.toResponseLimitValue());
+    }
 
     @PostMapping
     fun create(@RequestBody @Valid request:PostWalletRequest) : ResponseEntity<CreateWalletResponseDTO> {
@@ -30,12 +38,6 @@ class WalletController (
     @PostMapping("/{walletId}/payments")
     @ResponseStatus(HttpStatus.OK)
     fun makePayment(@RequestBody @Valid request:MakePaymentRequest, @PathVariable walletId: UUID){
-        walletService.makePayment(walletId, request)
-    }
-
-    @GetMapping("/{walletId}/limits")
-    fun getLimits(@PathVariable walletId:UUID) : ResponseEntity<WalletLimitResponseDTO> {
-        val wallet = walletService.getLimitsById(walletId)
-        return ResponseEntity.ok(wallet.toResponseLimitValue());
+        paymentService.makePayment(walletId, request)
     }
 }

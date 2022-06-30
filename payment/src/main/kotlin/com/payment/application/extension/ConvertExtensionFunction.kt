@@ -5,7 +5,7 @@ import com.payment.application.controller.request.PostWalletRequest
 import com.payment.application.controller.response.WalletLimitResponseDTO
 import com.payment.application.controller.response.CreateWalletResponseDTO
 import com.payment.application.enums.Period
-import com.payment.domain.model.DiaryPaymentModel
+import com.payment.domain.model.PaymentModel
 import com.payment.domain.model.WalletModel
 import java.time.ZoneId
 import java.time.ZonedDateTime
@@ -14,14 +14,14 @@ fun PostWalletRequest.toWalletModel(): WalletModel{
     return WalletModel(
         id = null,
         ownerName = this.ownerName,
-        dailyPayments = null
+        payments = null
     )
 }
 
-fun MakePaymentRequest.toDailyPaymentModel() : DiaryPaymentModel{
+fun MakePaymentRequest.toPaymentModel() : PaymentModel{
 
     fun getPeriod() : Period {
-        val zoned : ZonedDateTime = ZonedDateTime.of(this.Date, ZoneId.of("America/Sao_Paulo"));
+        val zoned : ZonedDateTime = ZonedDateTime.of(this.date, ZoneId.of("America/Sao_Paulo"));
         if(zoned.hour in 6..17){
             return Period.DAYTIME
         }
@@ -29,11 +29,11 @@ fun MakePaymentRequest.toDailyPaymentModel() : DiaryPaymentModel{
 
     }
 
-    return DiaryPaymentModel(
+    return PaymentModel(
         id = null,
         amount = this.amount,
         period = getPeriod(),
-        paymentDateTime = this.Date,
+        paymentDateTime = this.date,
         wallet = null,
     )
 }

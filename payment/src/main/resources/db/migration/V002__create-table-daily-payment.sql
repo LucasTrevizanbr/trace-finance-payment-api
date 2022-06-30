@@ -1,4 +1,4 @@
-CREATE TABLE diary_payment (
+CREATE TABLE payment (
     id bigint PRIMARY KEY NOT NULL auto_increment,
     amount DECIMAL(6,2),
     period VARCHAR(10),
