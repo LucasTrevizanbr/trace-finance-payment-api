@@ -20,19 +20,13 @@ class CrudWalletService(
         return walletRepository.save(wallet)
     }
 
-    fun getLimitsById(walletId: UUID): WalletModel {
-        return walletRepository.findById(walletId).orElseThrow {
-            NotFoundException(Errors.TP101.message.format(walletId), Errors.TP101.code)
-        }
-    }
-
     fun findById(walletId: UUID) : WalletModel{
         return walletRepository.findById(walletId).orElseThrow {
             NotFoundException(Errors.TP101.message.format(walletId), Errors.TP101.code)
         }
     }
 
-
+    @Transactional
     fun resetWalletsLimits(firstLimitOfTheDay: BigDecimal) {
         return walletRepository.resetWalletsLimits(firstLimitOfTheDay);
     }

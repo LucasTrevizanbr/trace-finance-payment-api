@@ -12,7 +12,6 @@ class ResetWalletLimitService(
 
     companion object{
         private const val  CRON_DAILY_RESET : String = "0 0 0 1/1 * ? *"
-
     }
 
     @Scheduled(cron = CRON_DAILY_RESET)
