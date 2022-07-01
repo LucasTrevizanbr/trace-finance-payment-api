@@ -12,6 +12,8 @@ group = "com.payment"
 version = "0.0.1-SNAPSHOT"
 java.sourceCompatibility = JavaVersion.VERSION_17
 
+
+
 repositories {
 	mavenCentral()
 }
@@ -32,6 +34,9 @@ dependencies {
 	runtimeOnly("mysql:mysql-connector-java")
 
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
+	testImplementation("io.mockk:mockk:1.12.4")
+	testImplementation("com.h2database:h2:2.1.214")
+
 }
 
 tasks.withType<KotlinCompile> {
@@ -39,8 +44,13 @@ tasks.withType<KotlinCompile> {
 		freeCompilerArgs = listOf("-Xjsr305=strict")
 		jvmTarget = "17"
 	}
+
 }
 
 tasks.withType<Test> {
 	useJUnitPlatform()
 }
+
+
+
+

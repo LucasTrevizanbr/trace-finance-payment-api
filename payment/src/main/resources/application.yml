@@ -1,8 +1,6 @@
 spring:
-  datasource:
-    url: ${DB_URL}
-    username: ${DB_USERNAME}
-    password: ${DB_PASSWORD}
+  profiles:
+    active: dev
   jackson:
     default-property-inclusion: non_null
   mvc:

@@ -39,5 +39,6 @@ class WalletController (
     @ResponseStatus(HttpStatus.OK)
     fun makePayment(@RequestBody @Valid request:MakePaymentRequest, @PathVariable walletId: UUID){
         paymentService.makePayment(walletId, request)
+        println("Baba")
     }
 }

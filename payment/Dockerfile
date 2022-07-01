@@ -1,14 +1,21 @@
-FROM gradle:jdk17-alpine
+FROM openjdk:17.0.2-jdk
 
-ARG DB_URL_BUILD="jdbc:mysql://localhost:9090/payment?createDatabaseIfNotExist=true&useTimezone=true&serverTimezone=UTC"
-ARG DB_USERNAME_BUILD="root"
-ARG DB_PASSWORD_BUILD="root"
+ARG PROFILE
+ARG ADITIONAL_OPTS
+ARG DB_URL
+ARG DB_USERNAME
+ARG DB_PASSWORD
 
-ENV DB_URL=$DB_URL_BUILD
-ENV DB_USERNAME=$DB_USERNAME_BUILD
-ENV DB_PASSWORD=$DB_PASSWORD_BUILD
+ENV PROFILE = ${PROFILE}
+ENV ADITIONAL_OPTS=${ADITIONAL_OPTS}
+ENV DB_URL=${DB_URL}
+ENV DB_USERNAME=${DB_USERNAME}
+ENV DB_PASSWORD=${DB_PASSWORD}
 
-WORKDIR /app
 
-COPY . .
-RUN
+COPY /build/libs/payment-0.0.1-SNAPSHOT.jar trace-payment.jar
+COPY wait-for-it.sh /wait-for-it.sh
+RUN chmod +x /wait-for-it.sh
+
+ENTRYPOINT ["/bin/bash","./wait-for-it.sh", "docker-mysql:3306","-s", "--", "java", "-jar", "trace-payment.jar", "-DDB_URL=${DB_URL}", "-DDB_USERNAME=${DB_USERNAME}", "-DDB_PASSWORD=${DB_PASSWORD}", "--spring.profiles.active=${PROFILE}"]
+

@@ -5,6 +5,7 @@ import com.payment.application.exception.NotFoundException
 import com.payment.domain.model.WalletModel
 import com.payment.domain.repository.WalletRepository
 import org.springframework.stereotype.Service
+import java.math.BigDecimal
 import java.util.*
 import javax.transaction.Transactional
 
@@ -29,5 +30,10 @@ class CrudWalletService(
         return walletRepository.findById(walletId).orElseThrow {
             NotFoundException(Errors.TP101.message.format(walletId), Errors.TP101.code)
         }
+    }
+
+
+    fun resetWalletsLimits(firstLimitOfTheDay: BigDecimal) {
+        return walletRepository.resetWalletsLimits(firstLimitOfTheDay);
     }
 }
