@@ -22,12 +22,7 @@ jobs:
         java-version: '17'
         distribution: 'temurin'
     - name: Test and generate reports
-      uses: gradle/gradle-build-action@67421db6bd0bf253fb4bd25b31ebb98943c375e1
-      with:
-        arguments: ./gradlew check jacocoTestCoverageVerification jacocoTestReport
-        working-directory: ./payment
+      run: cd paymnet/ ./gradlew check jacocoTestCoverageVerification jacocoTestReport
     - name: Build jar
-      uses: gradle/gradle-build-action@67421db6bd0bf253fb4bd25b31ebb98943c375e1
-      with:
-        arguments: ./gradlew clean bootjar
-        working-directory: ./payment
+      run: cd payment/ ./gradlew clean bootjar
+
