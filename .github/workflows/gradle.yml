@@ -22,7 +22,9 @@ jobs:
         java-version: '17'
         distribution: 'temurin'
     - name: Test and generate reports
-      run: cd paymnet/ ./gradlew check jacocoTestCoverageVerification jacocoTestReport
+      run: ./gradlew check jacocoTestCoverageVerification jacocoTestReport
+      working-directory: ./payment
     - name: Build jar
-      run: cd payment/ ./gradlew clean bootjar
+      run: ./gradlew clean bootjar
+      working-directory: ./payment
 
