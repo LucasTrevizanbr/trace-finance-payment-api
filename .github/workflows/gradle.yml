@@ -21,6 +21,9 @@ jobs:
       with:
         java-version: '17'
         distribution: 'temurin'
+    - name: Make gradlew executable
+      run: chmod +x ./gradlew
+      working-directory: ./payment
     - name: Test and generate reports
       run: ./gradlew check jacocoTestCoverageVerification jacocoTestReport
       working-directory: ./payment
