@@ -33,7 +33,7 @@ jobs:
     - name: Upload to Codecov
       uses: codecov/codecov-action@v2.0.2
       with:
-        directory: ./payment/build/reports/test
-        file:  index.html
+        directory: ./payment/build/reports/jacoco/test
+        file:  jacocoTestReport.xml
         flags: unittests
 
