@@ -31,7 +31,7 @@ jobs:
       run: ./gradlew clean bootjar
       working-directory: ./payment
     - name: Upload to Codecov
-      uses: codecov/codecov-action@3.1.0
+      uses: codecov/codecov-action@v3.1.0
       with:
         directory: ./payment/build/reports/jacoco/test
         file:  jacocoTestReport.xml
