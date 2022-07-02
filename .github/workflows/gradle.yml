@@ -30,4 +30,9 @@ jobs:
     - name: Build jar
       run: ./gradlew clean bootjar
       working-directory: ./payment
+    - name: Upload to Codecov
+      uses: codecov/codecov-action@v2.0.2
+      with:
+        file: ./payment/build/reports/test/index.html
+        flags: unittests
 
