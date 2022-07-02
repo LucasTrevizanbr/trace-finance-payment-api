@@ -13,7 +13,7 @@ import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
 import org.junit.jupiter.api.extension.ExtendWith
-import org.springframework.util.Assert
+
 
 import java.math.BigDecimal
 import java.util.*
@@ -23,7 +23,6 @@ class CrudWalletServiceTest{
 
     @MockK
     private lateinit var walletRepository: WalletRepository
-
 
     @InjectMockKs
     private lateinit var crudWalletService: CrudWalletService
@@ -41,7 +40,7 @@ class CrudWalletServiceTest{
     fun `should return a wallet if exists`(){
 
         val fakeUUID = UUID.randomUUID()
-        val fakeWalletModel = Optional.of(buildWallet())
+        val fakeWalletModel = Optional.of(buildFakeWallet())
 
         every  { walletRepository.findById(fakeUUID) }  returns fakeWalletModel
 
@@ -68,7 +67,7 @@ class CrudWalletServiceTest{
     @Test
     fun `should save a wallet`(){
 
-        val fakeWallet = buildWallet()
+        val fakeWallet = buildFakeWallet()
 
         every  { walletRepository.save(fakeWallet) }  returns fakeWallet
 
@@ -79,7 +78,7 @@ class CrudWalletServiceTest{
     }
 
 
-    private fun buildWallet(
+    private fun buildFakeWallet(
         id : UUID = UUID.randomUUID(),
         owenerName: String = "Owner name",
         limitValue : BigDecimal = BigDecimal("5000.00"),

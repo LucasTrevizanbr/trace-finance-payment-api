@@ -10,7 +10,7 @@ data class WalletModel(
 
     @Id
     @GeneratedValue
-    val id: UUID ?,
+    val id: UUID = UUID.randomUUID(),
 
     @Column
     val ownerName: String,

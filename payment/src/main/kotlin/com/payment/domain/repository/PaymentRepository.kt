@@ -17,12 +17,6 @@ interface PaymentRepository : JpaRepository<PaymentModel, Long> {
             "WHERE dp.wallet.id = :walletId " +
             "AND dp.period LIKE :period "+
             "AND cast(dp.paymentDateTime as LocalDate) = :todayDate")
-    fun paymentsAmountUntilNowByPeriod(walletId: UUID, todayDate: LocalDate?, period: Period) : BigDecimal?
-
-    @Query("SELECT SUM(dp.amount) " +
-            "FROM PaymentModel dp " +
-            "WHERE dp.wallet.id = :walletId " +
-            "AND cast(dp.paymentDateTime as LocalDate) = :todayDate")
-    fun paymentsAmountUntilNow(walletId: UUID, todayDate: LocalDate?) : BigDecimal?
+    fun totalPaymentsUntilNowByPeriod(walletId: UUID, todayDate: LocalDate?, period: Period) : BigDecimal?
 
 }

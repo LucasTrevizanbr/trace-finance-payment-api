@@ -13,7 +13,6 @@ import java.time.ZonedDateTime
 
 fun PostWalletRequest.toWalletModel(): WalletModel{
     return WalletModel(
-        id = null,
         ownerName = this.ownerName,
         payments = null
     )
@@ -28,7 +27,6 @@ fun MakePaymentRequest.toPaymentModel() : PaymentModel{
             return Period.DAYTIME
         }
         return Period.NIGHTLY
-
     }
 
     return PaymentModel(

@@ -64,6 +64,18 @@ class ControllerAdvice {
         return ResponseEntity(error, HttpStatus.BAD_REQUEST)
     }
 
+    @ExceptionHandler(PaymentWithoutWalletException::class)
+    fun handlePaymentWithoutWalletException(ex: PaymentWithoutWalletException, request: WebRequest): ResponseEntity<ErrorResponse> {
+        val error = ErrorResponse(
+            httpCode = HttpStatus.INTERNAL_SERVER_ERROR.value(),
+            message = ex.message,
+            internalCode = ex.errorCode,
+            errors = null
+        )
+
+        return ResponseEntity(error, HttpStatus.INTERNAL_SERVER_ERROR)
+    }
+
     @ExceptionHandler(NotFoundException::class)
     fun handleNotFoundException(ex: NotFoundException, request: WebRequest) : ResponseEntity<ErrorResponse> {
         val error = ErrorResponse(

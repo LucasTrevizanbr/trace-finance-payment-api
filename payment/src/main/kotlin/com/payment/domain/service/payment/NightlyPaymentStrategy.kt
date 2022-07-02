@@ -1,18 +1,15 @@
 package com.payment.domain.service.payment
 
-import com.payment.application.enums.Period
+import com.payment.application.enums.PeriodLimitValue
 import java.math.BigDecimal
-import java.time.LocalDate
-import java.util.*
 
-class NightlyPaymentStrategy(
-    private val crudPaymentService: CrudPaymentService
-) : PaymentStrategy {
-    override fun getLimit(): BigDecimal {
-        return BigDecimal("1000.00")
+class NightlyPaymentStrategy: PaymentStrategy {
+
+    override fun getCurrentLimit(): BigDecimal {
+        return PeriodLimitValue.NIGHTLY_LIMIT.getLimit()
     }
 
-    override fun getTotalPaymentsUntilNow(walletId: UUID, today: LocalDate, period: Period): BigDecimal {
-        return crudPaymentService.totalPaymentsByPeriod(walletId, today, period)
+    override fun walletStillHavePeriodLimit(totalPaymentsAlreadyMade: BigDecimal): Boolean {
+        return totalPaymentsAlreadyMade <= getCurrentLimit()
     }
 }

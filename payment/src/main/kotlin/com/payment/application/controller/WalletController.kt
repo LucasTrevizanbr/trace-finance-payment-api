@@ -4,6 +4,7 @@ import com.payment.application.controller.request.MakePaymentRequest
 import com.payment.application.controller.request.PostWalletRequest
 import com.payment.application.controller.response.WalletLimitResponseDTO
 import com.payment.application.controller.response.CreateWalletResponseDTO
+import com.payment.application.extension.toPaymentModel
 import com.payment.application.extension.toResponse
 import com.payment.application.extension.toResponseLimitValue
 import com.payment.domain.service.wallet.CrudWalletService
@@ -38,6 +39,7 @@ class WalletController (
     @PostMapping("/{walletId}/payments")
     @ResponseStatus(HttpStatus.OK)
     fun makePayment(@RequestBody @Valid request:MakePaymentRequest, @PathVariable walletId: UUID){
-        paymentService.makePayment(walletId, request)
+        val wallet = walletService.findById(walletId);
+        paymentService.makePayment(wallet, request.toPaymentModel())
     }
 }

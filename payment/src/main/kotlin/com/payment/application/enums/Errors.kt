@@ -11,5 +11,6 @@ enum class Errors (
 
     TP202("TP-202", "Invalid Date format for transaction, please send only a Date in ISO-8016, for example: [yyyy-MM-dd]" ),
     TP203("TP-203", "The %s limit of R$%s is already been reached"),
-    TP204("TP-204", "The wallet has no more limit, limit: R$%s")
+    TP204("TP-204", "The wallet has no more limit, limit: R$%s"),
+    TP205("TP-205", "The payment doesn't have a wallet linked")
 }
