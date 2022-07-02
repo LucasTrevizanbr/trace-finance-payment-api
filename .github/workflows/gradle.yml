@@ -30,9 +30,3 @@ jobs:
     - name: Build jar
       run: ./gradlew clean bootjar
       working-directory: ./payment
-    - name: Upload to Codecov
-      uses: codecov/codecov-action@v3.1.0
-      with:
-        file:  /home/runner/work/trace-finance-payment-api/trace-finance-payment-api/payment/build/reports/jacoco/test/jacocoTestReport.xml
-        flags: unittests
-
