@@ -23,7 +23,7 @@ class MakePaymentService(
         val today = payment.paymentDateTime.toLocalDate()
         val amountUntilNow = crudPaymentService.getTotalPaymentsByPeriod(wallet.id, today, payment.period)
 
-        if (periodPaymentStrategy.walletStillHavePeriodLimit(amountUntilNow)) throw PeriodLimitReachedException(
+        if(!periodPaymentStrategy.walletStillHavePeriodLimit(amountUntilNow)) throw PeriodLimitReachedException(
             Errors.TP203.message.format(payment.period, periodPaymentStrategy.getCurrentLimit()),
             Errors.TP203.code
         )
@@ -41,7 +41,7 @@ class MakePaymentService(
     }
 
     private fun walletHasLimit(walletLimitValue: BigDecimal, paymentAmount: BigDecimal) : Boolean {
-        return walletLimitValue <= paymentAmount
+        return walletLimitValue >= paymentAmount
     }
 
     private fun newLimitAfterDiscount(walletCurrentLimit : BigDecimal , paymentAmount: BigDecimal) : BigDecimal {

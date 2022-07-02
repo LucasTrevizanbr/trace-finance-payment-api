@@ -10,7 +10,7 @@ class WeekendPaymentStrategy : PaymentStrategy {
     }
 
     override fun walletStillHavePeriodLimit(totalPaymentsAlreadyMade: BigDecimal): Boolean {
-        return totalPaymentsAlreadyMade <= getCurrentLimit()
+        return totalPaymentsAlreadyMade < getCurrentLimit()
     }
 
 }
