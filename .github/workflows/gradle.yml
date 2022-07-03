@@ -10,8 +10,8 @@ permissions:
   contents: read
 
 jobs:
-  build:
 
+  tests:
     runs-on: ubuntu-latest
 
     steps:
@@ -24,9 +24,27 @@ jobs:
     - name: Make gradlew executable
       run: chmod +x ./gradlew
       working-directory: ./payment
+      
+    - name: Build-DB
+      run: docker-compose build db
+
+    - name: Create-DB
+      run: docker-compose up -d db
+      
     - name: Test and generate reports
       run: ./gradlew check jacocoTestCoverageVerification jacocoTestReport
       working-directory: ./payment
-    - name: Build jar
-      run: ./gradlew clean bootjar
-      working-directory: ./payment
+      
+  build:
+     needs: tests
+     runs-on: ubuntu-latest
+
+     steps:
+     - uses: actions/checkout@v3
+    
+     - name: Build jar
+       run: ./gradlew clean bootjar
+       working-directory: ./payment
+    
+      
+    
