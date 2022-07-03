@@ -1,6 +1,6 @@
 version: "3.4"
 services: 
-    docker-mysql:
+    db:
       restart: always
       image: mysql:8.0
       container_name: mysql_container

@@ -1,11 +1,13 @@
 package com.payment.domain.service.wallet
 
 import com.payment.application.enums.Errors
+import com.payment.application.enums.Period
 import com.payment.application.exception.NotFoundException
 import com.payment.domain.model.WalletModel
 import com.payment.domain.repository.WalletRepository
 import org.springframework.stereotype.Service
 import java.math.BigDecimal
+import java.time.LocalDate
 import java.util.*
 import javax.transaction.Transactional
 
@@ -26,8 +28,8 @@ class CrudWalletService(
         }
     }
 
-    @Transactional
     fun resetWalletsLimits(firstLimitOfTheDay: BigDecimal) {
         return walletRepository.resetWalletsLimits(firstLimitOfTheDay);
     }
+
 }

@@ -10,6 +10,7 @@ import com.payment.application.extension.toResponseLimitValue
 import com.payment.domain.service.wallet.CrudWalletService
 import com.payment.application.extension.toWalletModel
 import com.payment.domain.service.payment.MakePaymentService
+import com.payment.domain.service.period.PeriodDefinitionService
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
@@ -20,8 +21,9 @@ import javax.validation.Valid
 @RestController
 @RequestMapping("wallets")
 class WalletController (
-    val walletService: CrudWalletService,
-    val paymentService: MakePaymentService
+    private val walletService: CrudWalletService,
+    private val paymentService: MakePaymentService,
+    private val periodDefinitionService: PeriodDefinitionService
 ) {
 
     @GetMapping("/{walletId}/limits")
@@ -40,6 +42,8 @@ class WalletController (
     @ResponseStatus(HttpStatus.OK)
     fun makePayment(@RequestBody @Valid request:MakePaymentRequest, @PathVariable walletId: UUID){
         val wallet = walletService.findById(walletId);
-        paymentService.makePayment(wallet, request.toPaymentModel())
+        val brazilTime = periodDefinitionService.getBrazilianDateTimeNow().toLocalTime()
+        val payment = request.toPaymentModel(periodDefinitionService.getPeriod(), brazilTime)
+        paymentService.makePayment(wallet, payment)
     }
 }

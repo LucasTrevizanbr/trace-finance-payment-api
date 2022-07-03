@@ -7,33 +7,21 @@ import com.payment.application.controller.response.CreateWalletResponseDTO
 import com.payment.application.enums.Period
 import com.payment.domain.model.PaymentModel
 import com.payment.domain.model.WalletModel
-import java.time.LocalTime
-import java.time.ZoneId
-import java.time.ZonedDateTime
+import java.time.*
 
 fun PostWalletRequest.toWalletModel(): WalletModel{
     return WalletModel(
         ownerName = this.ownerName,
-        payments = null
     )
 }
 
-fun MakePaymentRequest.toPaymentModel() : PaymentModel{
-
-    val currentDateTime : ZonedDateTime = ZonedDateTime.of(this.date, LocalTime.now(), ZoneId.of("America/Sao_Paulo") );
-
-    fun getPeriod() : Period {
-        if(currentDateTime.hour in 6..17){
-            return Period.DAYTIME
-        }
-        return Period.NIGHTLY
-    }
+fun MakePaymentRequest.toPaymentModel(period: Period, brazilTime: LocalTime): PaymentModel{
 
     return PaymentModel(
         id = null,
         amount = this.amount,
-        period = getPeriod(),
-        paymentDateTime = currentDateTime.toLocalDateTime(),
+        period = period,
+        paymentDateTime = LocalDateTime.of(this.date, brazilTime),
         wallet = null,
     )
 }

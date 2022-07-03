@@ -24,5 +24,5 @@ data class PaymentModel(
     val paymentDateTime : LocalDateTime,
 
     @ManyToOne
-    var wallet: WalletModel ?
+    var wallet: WalletModel ? = null
 )

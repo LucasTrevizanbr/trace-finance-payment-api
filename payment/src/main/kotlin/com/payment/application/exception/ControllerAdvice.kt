@@ -53,7 +53,7 @@ class ControllerAdvice {
     }
 
     @ExceptionHandler(WalletLimitReachedException::class)
-    fun handleLimitReachedException(ex: WalletLimitReachedException, request: WebRequest): ResponseEntity<ErrorResponse> {
+    fun handleWalletLimitReachedException(ex: WalletLimitReachedException, request: WebRequest): ResponseEntity<ErrorResponse> {
         val error = ErrorResponse(
             httpCode = HttpStatus.BAD_REQUEST.value(),
             message = ex.message,
@@ -62,18 +62,6 @@ class ControllerAdvice {
         )
 
         return ResponseEntity(error, HttpStatus.BAD_REQUEST)
-    }
-
-    @ExceptionHandler(PaymentWithoutWalletException::class)
-    fun handlePaymentWithoutWalletException(ex: PaymentWithoutWalletException, request: WebRequest): ResponseEntity<ErrorResponse> {
-        val error = ErrorResponse(
-            httpCode = HttpStatus.INTERNAL_SERVER_ERROR.value(),
-            message = ex.message,
-            internalCode = ex.errorCode,
-            errors = null
-        )
-
-        return ResponseEntity(error, HttpStatus.INTERNAL_SERVER_ERROR)
     }
 
     @ExceptionHandler(NotFoundException::class)

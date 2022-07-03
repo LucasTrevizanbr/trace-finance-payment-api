@@ -14,6 +14,7 @@ import javax.transaction.Transactional
 class MakePaymentService(
     private val crudPaymentService: CrudPaymentService,
     private val crudWalletService: CrudWalletService,
+
 ) {
 
     @Transactional
@@ -34,10 +35,10 @@ class MakePaymentService(
         )
 
         wallet.limitValue = newLimitAfterDiscount(wallet.limitValue, payment.amount)
-        payment.wallet = wallet
+        wallet.linkPaymentAndWallet(payment)
 
         crudWalletService.save(wallet)
-        crudPaymentService.save(payment)
+
     }
 
     private fun walletHasLimit(walletLimitValue: BigDecimal, paymentAmount: BigDecimal) : Boolean {

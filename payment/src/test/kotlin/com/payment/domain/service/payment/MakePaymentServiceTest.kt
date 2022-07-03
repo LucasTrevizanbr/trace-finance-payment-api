@@ -13,6 +13,7 @@ import io.mockk.impl.annotations.MockK
 import io.mockk.junit5.MockKExtension
 import io.mockk.verify
 import org.junit.jupiter.api.Assertions.*
+import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.assertThrows
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -36,127 +37,138 @@ class MakePaymentServiceTest {
     private var daytimeLimit = PeriodLimitValue.DAYTIME_LIMIT.getLimit();
     private var weekendLimit = PeriodLimitValue.WEEKEND_LIMIT.getLimit();
 
-    @Test
-    fun `Should successfully do a payment in daytime period`(){
+    @Nested
+    inner class `Testing payment daytime period rules`{
 
-        val fakePaymentDaytime = buildFakePayment(period = Period.DAYTIME, amount = BigDecimal("1000"))
-        val fakeWalletWithLimit = buildFakeWallet(limitValue = BigDecimal("1000.00"))
+        @Test
+        fun `Should successfully do a payment in daytime period`(){
 
-        every {
-            crudPaymentService.getTotalPaymentsByPeriod( fakeWalletWithLimit.id,
-                fakePaymentDaytime.paymentDateTime.toLocalDate(), fakePaymentDaytime.period)
-        } returns daytimeLimit.minus(BigDecimal("0000.01"))
+            val fakePaymentDaytime = buildFakePayment(period = Period.DAYTIME, amount = BigDecimal("1000"))
+            val fakeWalletWithLimit = buildFakeWallet(limitValue = BigDecimal("1000.00"))
 
-        mocksEveryReturnOfRepositorys(fakeWalletWithLimit, fakePaymentDaytime)
+            every {
+                crudPaymentService.getTotalPaymentsByPeriod( fakeWalletWithLimit.id,
+                    fakePaymentDaytime.paymentDateTime.toLocalDate(), fakePaymentDaytime.period)
+            } returns daytimeLimit.minus(BigDecimal("0000.01"))
 
-        makePaymentService.makePayment(fakeWalletWithLimit, fakePaymentDaytime)
+            mocksEveryReturnOfRepositorys(fakeWalletWithLimit)
 
-        checkFunCallsInsCaseOfSuccess(fakeWalletWithLimit, fakePaymentDaytime)
-    }
-
-    @Test
-    fun `Should successfully do a payment in nightly period`(){
-
-        val fakePaymentDaytime = buildFakePayment(period = Period.NIGHTLY, amount = BigDecimal("1000"))
-        val fakeWalletWithLimit = buildFakeWallet(limitValue = BigDecimal("1000.00"))
-
-        every {
-            crudPaymentService.getTotalPaymentsByPeriod( fakeWalletWithLimit.id,
-                fakePaymentDaytime.paymentDateTime.toLocalDate(), fakePaymentDaytime.period)
-        } returns nightlyLimit.minus(BigDecimal("0000.01"))
-
-        mocksEveryReturnOfRepositorys(fakeWalletWithLimit, fakePaymentDaytime)
-
-        makePaymentService.makePayment(fakeWalletWithLimit, fakePaymentDaytime)
-
-        checkFunCallsInsCaseOfSuccess(fakeWalletWithLimit, fakePaymentDaytime)
-    }
-
-    @Test
-    fun `Should successfully do a payment in weekend period`(){
-
-        val fakeWeekendPayment = buildFakePayment(period = Period.WEEKEND, amount = BigDecimal("1000"))
-        val fakeWalletWithLimit = buildFakeWallet(limitValue = BigDecimal("1000.00"))
-
-        every {
-            crudPaymentService.getTotalPaymentsByPeriod(
-                fakeWalletWithLimit.id,
-                fakeWeekendPayment.paymentDateTime.toLocalDate(), fakeWeekendPayment.period
-            )
-        } returns weekendLimit.minus(BigDecimal("0000.01"))
-
-        mocksEveryReturnOfRepositorys(fakeWalletWithLimit, fakeWeekendPayment)
-
-        makePaymentService.makePayment(fakeWalletWithLimit, fakeWeekendPayment)
-
-        checkFunCallsInsCaseOfSuccess(fakeWalletWithLimit, fakeWeekendPayment)
-    }
-
-
-    @Test
-    fun `Should throw a exception when wallet doesn't have more daytime limit`(){
-
-        val fakePaymentDaytime = buildFakePayment(period = Period.DAYTIME, amount = BigDecimal("1000.00"))
-        val fakeWalletWithLimit = buildFakeWallet(limitValue = BigDecimal("1000.00"))
-
-        every {
-            crudPaymentService.getTotalPaymentsByPeriod( fakeWalletWithLimit.id,
-                fakePaymentDaytime.paymentDateTime.toLocalDate(), fakePaymentDaytime.period)
-        } returns daytimeLimit
-        mocksEveryReturnOfRepositorys(fakeWalletWithLimit, fakePaymentDaytime)
-
-        val error = assertThrows<PeriodLimitReachedException>{
             makePaymentService.makePayment(fakeWalletWithLimit, fakePaymentDaytime)
+
+            checkFunCallsInCaseOfSuccess(fakeWalletWithLimit, fakePaymentDaytime)
         }
 
-        assertEquals("The DAYTIME limit of R$4000.00 is already been reached", error.message)
-        assertEquals("TP-203", error.errorCode)
-        checkFunCallsInCaseOfError(fakeWalletWithLimit, fakePaymentDaytime)
-    }
+        @Test
+        fun `Should throw a exception when wallet doesn't have more daytime limit`(){
 
-    @Test
-    fun `Should throw a exception when wallet doesn't have more nightly limit`(){
+            val fakePaymentDaytime = buildFakePayment(period = Period.DAYTIME, amount = BigDecimal("1000.00"))
+            val fakeWalletWithLimit = buildFakeWallet(limitValue = BigDecimal("1000.00"))
 
-        val fakeNightlyPayment = buildFakePayment(period = Period.NIGHTLY, amount = BigDecimal("1000.00"))
-        val fakeWalletWithLimit = buildFakeWallet(limitValue = BigDecimal("1000.00"))
+            every {
+                crudPaymentService.getTotalPaymentsByPeriod( fakeWalletWithLimit.id,
+                    fakePaymentDaytime.paymentDateTime.toLocalDate(), fakePaymentDaytime.period)
+            } returns daytimeLimit
 
-        every {
-            crudPaymentService.getTotalPaymentsByPeriod( fakeWalletWithLimit.id,
-                fakeNightlyPayment.paymentDateTime.toLocalDate(), fakeNightlyPayment.period)
-        } returns nightlyLimit
-        mocksEveryReturnOfRepositorys(fakeWalletWithLimit, fakeNightlyPayment)
+            mocksEveryReturnOfRepositorys(fakeWalletWithLimit)
 
+            val error = assertThrows<PeriodLimitReachedException>{
+                makePaymentService.makePayment(fakeWalletWithLimit, fakePaymentDaytime)
+            }
 
-        val error = assertThrows<PeriodLimitReachedException>{
-            makePaymentService.makePayment(fakeWalletWithLimit, fakeNightlyPayment)
+            assertEquals("The DAYTIME limit of R$4000.00 is already been reached", error.message)
+            assertEquals("TP-203", error.errorCode)
+            checkFunCallsInCaseOfError(fakeWalletWithLimit, fakePaymentDaytime)
         }
-
-        assertEquals("The NIGHTLY limit of R$1000.00 is already been reached", error.message)
-        assertEquals("TP-203", error.errorCode)
-        checkFunCallsInCaseOfError(fakeWalletWithLimit, fakeNightlyPayment)
     }
 
-    @Test
-    fun `Should throw a exception when wallet doesn't have more weekend limit`(){
+   @Nested
+   inner class `Testing payment nigthly period rules`{
+       @Test
+       fun `Should successfully do a payment in nightly period`(){
 
-        val fakeWeekendPayment = buildFakePayment(period = Period.WEEKEND, amount = BigDecimal("1000.00"))
-        val fakeWalletWithLimit = buildFakeWallet(limitValue = BigDecimal("1000.00"))
+           val fakePaymentDaytime = buildFakePayment(period = Period.NIGHTLY, amount = BigDecimal("1000"))
+           val fakeWalletWithLimit = buildFakeWallet(limitValue = BigDecimal("1000.00"))
 
-        every {
-            crudPaymentService.getTotalPaymentsByPeriod( fakeWalletWithLimit.id,
-                fakeWeekendPayment.paymentDateTime.toLocalDate(), fakeWeekendPayment.period)
-        } returns weekendLimit
+           every {
+               crudPaymentService.getTotalPaymentsByPeriod( fakeWalletWithLimit.id,
+                   fakePaymentDaytime.paymentDateTime.toLocalDate(), fakePaymentDaytime.period)
+           } returns nightlyLimit.minus(BigDecimal("0000.01"))
 
-        mocksEveryReturnOfRepositorys(fakeWalletWithLimit, fakeWeekendPayment)
+           mocksEveryReturnOfRepositorys(fakeWalletWithLimit)
 
-        val error = assertThrows<PeriodLimitReachedException>{
+           makePaymentService.makePayment(fakeWalletWithLimit, fakePaymentDaytime)
+
+           checkFunCallsInCaseOfSuccess(fakeWalletWithLimit, fakePaymentDaytime)
+       }
+
+       @Test
+       fun `Should throw a exception when wallet doesn't have more nightly limit`(){
+
+           val fakeNightlyPayment = buildFakePayment(period = Period.NIGHTLY, amount = BigDecimal("1000.00"))
+           val fakeWalletWithLimit = buildFakeWallet(limitValue = BigDecimal("1000.00"))
+
+           every {
+               crudPaymentService.getTotalPaymentsByPeriod( fakeWalletWithLimit.id,
+                   fakeNightlyPayment.paymentDateTime.toLocalDate(), fakeNightlyPayment.period)
+           } returns nightlyLimit
+
+           val error = assertThrows<PeriodLimitReachedException>{
+               makePaymentService.makePayment(fakeWalletWithLimit, fakeNightlyPayment)
+           }
+
+           assertEquals("The NIGHTLY limit of R$1000.00 is already been reached", error.message)
+           assertEquals("TP-203", error.errorCode)
+           checkFunCallsInCaseOfError(fakeWalletWithLimit, fakeNightlyPayment)
+       }
+
+   }
+
+    @Nested
+    inner class `Testing payment weekend period rules`{
+
+        @Test
+        fun `Should successfully do a payment in weekend period`(){
+
+            val fakeWeekendPayment = buildFakePayment(period = Period.WEEKEND, amount = BigDecimal("1000"))
+            val fakeWalletWithLimit = buildFakeWallet(limitValue = BigDecimal("1000.00"))
+
+            every {
+                crudPaymentService.getTotalPaymentsByPeriod(
+                    fakeWalletWithLimit.id,
+                    fakeWeekendPayment.paymentDateTime.toLocalDate(), fakeWeekendPayment.period
+                )
+            } returns weekendLimit.minus(BigDecimal("0000.01"))
+
+            mocksEveryReturnOfRepositorys(fakeWalletWithLimit)
+
             makePaymentService.makePayment(fakeWalletWithLimit, fakeWeekendPayment)
+
+            checkFunCallsInCaseOfSuccess(fakeWalletWithLimit, fakeWeekendPayment)
         }
 
-        assertEquals("The WEEKEND limit of R$1000.00 is already been reached", error.message)
-        assertEquals("TP-203", error.errorCode)
-        checkFunCallsInCaseOfError(fakeWalletWithLimit, fakeWeekendPayment)
+
+        @Test
+        fun `Should throw a exception when wallet doesn't have more weekend limit`(){
+
+            val fakeWeekendPayment = buildFakePayment(period = Period.WEEKEND, amount = BigDecimal("1000.00"))
+            val fakeWalletWithLimit = buildFakeWallet(limitValue = BigDecimal("1000.00"))
+
+            every {
+                crudPaymentService.getTotalPaymentsByPeriod( fakeWalletWithLimit.id,
+                    fakeWeekendPayment.paymentDateTime.toLocalDate(), fakeWeekendPayment.period)
+            } returns weekendLimit
+
+            val error = assertThrows<PeriodLimitReachedException>{
+                makePaymentService.makePayment(fakeWalletWithLimit, fakeWeekendPayment)
+            }
+
+            assertEquals("The WEEKEND limit of R$1000.00 is already been reached", error.message)
+            assertEquals("TP-203", error.errorCode)
+            checkFunCallsInCaseOfError(fakeWalletWithLimit, fakeWeekendPayment)
+        }
+
     }
+
 
     @Test
     fun `Should throw a exception when wallet doesn't have limit at all`(){
@@ -168,7 +180,6 @@ class MakePaymentServiceTest {
             crudPaymentService.getTotalPaymentsByPeriod( fakeWalletWithNoLimit.id,
                 fakePaymentDaytime.paymentDateTime.toLocalDate(), fakePaymentDaytime.period)
         } returns daytimeLimit.minus(BigDecimal("0000.01"))
-        mocksEveryReturnOfRepositorys(fakeWalletWithNoLimit, fakePaymentDaytime)
 
         val error = assertThrows<WalletLimitReachedException>{
             makePaymentService.makePayment(fakeWalletWithNoLimit, fakePaymentDaytime)
@@ -182,13 +193,11 @@ class MakePaymentServiceTest {
 
     private fun mocksEveryReturnOfRepositorys(
         fakeWalletWithLimit: WalletModel,
-        fakePaymentDaytime: PaymentModel
     ) {
         every { crudWalletService.save(fakeWalletWithLimit) } returns fakeWalletWithLimit
-        every { crudPaymentService.save(fakePaymentDaytime) } returns fakePaymentDaytime
     }
 
-    private fun checkFunCallsInsCaseOfSuccess(
+    private fun checkFunCallsInCaseOfSuccess(
         fakeWalletWithLimit: WalletModel,
         fakePayment: PaymentModel
     ) {
@@ -199,7 +208,6 @@ class MakePaymentServiceTest {
             )
         }
         verify(exactly = 1) { crudWalletService.save(fakeWalletWithLimit) }
-        verify(exactly = 1) { crudPaymentService.save(fakePayment) }
     }
 
     private fun checkFunCallsInCaseOfError(
@@ -212,17 +220,15 @@ class MakePaymentServiceTest {
                 fakePayment.paymentDateTime.toLocalDate(), fakePayment.period
             )
         }
-        verify(exactly = 0) { crudWalletService.save(fakeWalletWithLimit) }
-        verify(exactly = 0) { crudPaymentService.save(fakePayment) }
+        verify(exactly = 0) { crudWalletService.save(any()) }
     }
 
     private fun buildFakeWallet(
-        id : UUID = UUID.randomUUID(),
-        owenerName: String = "Owner name",
-        limitValue : BigDecimal = BigDecimal("5000.00"),
-        payments : List<PaymentModel>? = null
+        id: UUID = UUID.randomUUID(),
+        ownerName: String = "Owner name",
+        limitValue: BigDecimal = BigDecimal("5000.00"),
     ) : WalletModel {
-        return WalletModel(id, owenerName, limitValue, payments)
+        return WalletModel(id, ownerName, limitValue)
     }
 
     private fun buildFakePayment (
