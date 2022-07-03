@@ -30,9 +30,9 @@ services:
          DB_USERNAME: root
          DB_PASSWORD: root
       links:
-        - docker-mysql
+        - db
       depends_on:
-        - docker-mysql  
+        - db  
      
 networks:
   trace_network:
