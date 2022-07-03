@@ -1,1 +1,1 @@
-# trace-finance-payment-api
+[![Test and build Kotlin app with Gradle](https://github.com/LucasTrevizanbr/trace-finance-payment-api/actions/workflows/gradle.yml/badge.svg)](https://github.com/LucasTrevizanbr/trace-finance-payment-api/actions/workflows/gradle.yml)
