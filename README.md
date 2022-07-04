@@ -3,7 +3,7 @@
 
 <h1 align="center">🎯 Sobre a API</h1>
 
-A API é capaz de realizar as operações para controle de clientes e funcionários e consumir a Api externa (ViaCEP) - verificando a incidência de cep(região).
+A API tem como propósito controlar pagamentos para uma carteira, aplicando regras de limite com base em periodos dos dias.
 
 <h1 align="center">📦 Desenvolvimento</h1>
 
@@ -45,6 +45,8 @@ $ docker-compose up
 ```
 
 O servidor iniciará na porta:8080 - acesse http://localhost:8080/swagger-ui/#/ para ter acesso direto a documentação
+
+*caso tenha ocorrido algum erro, por favor verifique a documentação sobre docker da aplicação*
 
 <h1 align="center">✔️ Verificando se o projeto esta on</h1>
 
