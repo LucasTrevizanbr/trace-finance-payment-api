@@ -1,0 +1,94 @@
+{
+	"info": {
+		"_postman_id": "3068c81e-b250-4e67-96f8-05b40b9603e6",
+		"name": "Payment Trace",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "13186614"
+	},
+	"item": [
+		{
+			"name": "Wallet endpoint",
+			"item": [
+				{
+					"name": "Create Wallet",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"ownerName\": \"Marcio seixas\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/wallets",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"wallets"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get limits of a Wallet",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/wallets/c778acb6-3c5d-4c52-b6da-644e63eeb140/limits",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"wallets",
+								"c778acb6-3c5d-4c52-b6da-644e63eeb140",
+								"limits"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Make payment",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"amount\": 1000,\r\n    \"date\": \"2022-06-04\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/wallets/c778acb6-3c5d-4c52-b6da-644e63eeb140/payments",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"wallets",
+								"c778acb6-3c5d-4c52-b6da-644e63eeb140",
+								"payments"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
