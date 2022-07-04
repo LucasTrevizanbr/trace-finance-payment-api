@@ -1,9 +1,9 @@
-package com.payment.application.enums
+package com.payment.domain.service.period
 
-import com.payment.domain.service.payment.DayTimePaymentStrategy
-import com.payment.domain.service.payment.NightlyPaymentStrategy
-import com.payment.domain.service.payment.PaymentStrategy
-import com.payment.domain.service.payment.WeekendPaymentStrategy
+import com.payment.domain.service.payment.strategy.DayTimePaymentStrategy
+import com.payment.domain.service.payment.strategy.NightlyPaymentStrategy
+import com.payment.domain.service.payment.strategy.PaymentStrategy
+import com.payment.domain.service.payment.strategy.WeekendPaymentStrategy
 
 enum class Period (
 

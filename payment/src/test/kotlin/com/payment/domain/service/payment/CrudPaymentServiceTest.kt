@@ -1,6 +1,6 @@
 package com.payment.domain.service.payment
 
-import com.payment.application.enums.Period
+import com.payment.domain.service.period.Period
 import com.payment.domain.model.PaymentModel
 import com.payment.domain.model.WalletModel
 import com.payment.domain.repository.PaymentRepository
@@ -66,7 +66,7 @@ class CrudPaymentServiceTest{
 
     private fun buildFakePayment (
         id : Long? = 1L,
-        period:Period  = Period.DAYTIME,
+        period: Period = Period.DAYTIME,
         amount: BigDecimal = BigDecimal("1000.00"),
         paymentDateTime: LocalDateTime = LocalDateTime.now(),
         wallet: WalletModel? = null

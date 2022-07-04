@@ -1,9 +1,9 @@
 package com.payment.domain.service.payment
 
-import com.payment.application.enums.Period
-import com.payment.application.enums.PeriodLimitValue
-import com.payment.application.exception.PeriodLimitReachedException
-import com.payment.application.exception.WalletLimitReachedException
+import com.payment.domain.service.period.Period
+import com.payment.domain.service.period.PeriodLimitValue
+import com.payment.application.exception.error.PeriodLimitReachedException
+import com.payment.application.exception.error.WalletLimitReachedException
 import com.payment.domain.model.PaymentModel
 import com.payment.domain.model.WalletModel
 import com.payment.domain.service.wallet.CrudWalletService

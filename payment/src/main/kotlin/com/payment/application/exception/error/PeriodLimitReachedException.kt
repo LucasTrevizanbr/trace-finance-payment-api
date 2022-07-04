@@ -1,4 +1,4 @@
-package com.payment.application.exception
+package com.payment.application.exception.error
 
 class PeriodLimitReachedException(
     override val message: String,

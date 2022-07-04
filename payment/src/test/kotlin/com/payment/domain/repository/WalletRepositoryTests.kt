@@ -14,7 +14,7 @@ import java.math.BigDecimal
 
 @ExtendWith(MockKExtension::class)
 @SpringBootTest
-@ActiveProfiles("dev")
+@ActiveProfiles("test")
 class WalletRepositoryTests {
 
     @Autowired

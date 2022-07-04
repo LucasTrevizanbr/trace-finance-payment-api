@@ -1,6 +1,6 @@
-package com.payment.domain.service.payment
+package com.payment.domain.service.payment.strategy
 
-import com.payment.application.enums.PeriodLimitValue
+import com.payment.domain.service.period.PeriodLimitValue
 import java.math.BigDecimal
 
 class DayTimePaymentStrategy : PaymentStrategy {

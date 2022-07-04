@@ -1,6 +1,6 @@
 package com.payment.domain.repository
 
-import com.payment.application.enums.Period
+import com.payment.domain.service.period.Period
 import com.payment.domain.model.PaymentModel
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.data.jpa.repository.Query

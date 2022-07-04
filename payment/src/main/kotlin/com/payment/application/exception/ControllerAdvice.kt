@@ -2,7 +2,10 @@ package com.payment.application.exception
 
 import com.payment.application.controller.response.ErrorResponse
 import com.payment.application.controller.response.FieldErrorResponse
-import com.payment.application.enums.Errors
+import com.payment.application.exception.error.Errors
+import com.payment.application.exception.error.NotFoundException
+import com.payment.application.exception.error.PeriodLimitReachedException
+import com.payment.application.exception.error.WalletLimitReachedException
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.MethodArgumentNotValidException

@@ -1,6 +1,7 @@
 package com.payment.domain.service.payment
 
-import com.payment.application.enums.PeriodLimitValue
+import com.payment.domain.service.payment.strategy.DayTimePaymentStrategy
+import com.payment.domain.service.period.PeriodLimitValue
 import io.mockk.junit5.MockKExtension
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test

@@ -1,7 +1,6 @@
 package com.payment.domain.service.period
 
 
-import com.payment.application.enums.Period
 import io.mockk.junit5.MockKExtension
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test

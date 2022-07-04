@@ -16,10 +16,11 @@ services:
         - payment_data:/var/lib/mysql
 
     trace-payment-app:
+      restart: always
       build:
         context: ./payment
         dockerfile: ./Dockerfile
-      image: api
+      image: payment_api
       ports:
         - 8080:8080
       networks:

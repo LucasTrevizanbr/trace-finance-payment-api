@@ -1,6 +1,6 @@
 package com.payment.domain.service.wallet
 
-import com.payment.application.exception.NotFoundException
+import com.payment.application.exception.error.NotFoundException
 import com.payment.domain.model.PaymentModel
 import com.payment.domain.model.WalletModel
 import com.payment.domain.repository.WalletRepository

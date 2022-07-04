@@ -3,7 +3,7 @@ package com.payment.application.controller
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.payment.application.controller.request.MakePaymentRequest
 import com.payment.application.controller.request.PostWalletRequest
-import com.payment.application.enums.Period
+import com.payment.domain.service.period.Period
 import com.payment.domain.model.PaymentModel
 import com.payment.domain.model.WalletModel
 import com.payment.domain.repository.PaymentRepository
@@ -24,13 +24,12 @@ import java.math.BigDecimal
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.util.*
-import kotlin.collections.ArrayList
 import kotlin.random.Random
 
 @SpringBootTest
 @AutoConfigureMockMvc
 @ContextConfiguration
-@ActiveProfiles("dev")
+@ActiveProfiles("test")
 class WalletControllerTest{
 
     @Autowired

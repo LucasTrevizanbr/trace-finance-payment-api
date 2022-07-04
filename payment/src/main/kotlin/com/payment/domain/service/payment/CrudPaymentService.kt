@@ -1,5 +1,5 @@
 package com.payment.domain.service.payment
-import com.payment.application.enums.Period
+import com.payment.domain.service.period.Period
 import com.payment.domain.repository.PaymentRepository
 import org.springframework.stereotype.Service
 import java.math.BigDecimal

@@ -1,6 +1,6 @@
 package com.payment.domain.repository
 
-import com.payment.application.enums.Period
+import com.payment.domain.service.period.Period
 import com.payment.domain.model.PaymentModel
 import com.payment.domain.model.WalletModel
 import io.mockk.junit5.MockKExtension
@@ -19,7 +19,7 @@ import java.time.LocalTime
 
 @ExtendWith(MockKExtension::class)
 @SpringBootTest
-@ActiveProfiles("dev")
+@ActiveProfiles("test")
 class PaymentRepositoryTests {
 
     @Autowired

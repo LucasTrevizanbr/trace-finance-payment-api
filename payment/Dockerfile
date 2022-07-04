@@ -17,5 +17,5 @@ COPY /build/libs/payment-0.0.1-SNAPSHOT.jar trace-payment.jar
 COPY wait-for-it.sh /wait-for-it.sh
 RUN chmod +x /wait-for-it.sh
 
-ENTRYPOINT ["/bin/bash","./wait-for-it.sh", "docker-mysql:3306","-s", "--", "java", "-jar", "trace-payment.jar", "-DDB_URL=${DB_URL}", "-DDB_USERNAME=${DB_USERNAME}", "-DDB_PASSWORD=${DB_PASSWORD}", "--spring.profiles.active=${PROFILE}"]
+ENTRYPOINT ["/bin/bash","./wait-for-it.sh", "db:3306","-s", "--", "java", "-jar", "trace-payment.jar", "-DDB_URL=${DB_URL}", "-DDB_USERNAME=${DB_USERNAME}", "-DDB_PASSWORD=${DB_PASSWORD}", "--spring.profiles.active=${PROFILE}"]
 

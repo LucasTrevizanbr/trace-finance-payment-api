@@ -20,7 +20,7 @@ class SwaggerConfig {
         .build()
 
         .apiInfo(ApiInfoBuilder()
-            .title("Wallet's payment")
+            .title("Payment API")
             .description("API for wallet's payment control")
             .contact( Contact(
                 "Lucas Trevizan",

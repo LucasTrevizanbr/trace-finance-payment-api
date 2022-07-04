@@ -1,10 +1,11 @@
 package com.payment.domain.service.payment
 
-import com.payment.application.enums.Errors
-import com.payment.application.exception.PeriodLimitReachedException
-import com.payment.application.exception.WalletLimitReachedException
+import com.payment.application.exception.error.Errors
+import com.payment.application.exception.error.PeriodLimitReachedException
+import com.payment.application.exception.error.WalletLimitReachedException
 import com.payment.domain.model.PaymentModel
 import com.payment.domain.model.WalletModel
+import com.payment.domain.service.payment.strategy.PaymentStrategy
 import com.payment.domain.service.wallet.CrudWalletService
 import org.springframework.stereotype.Service
 import java.math.BigDecimal

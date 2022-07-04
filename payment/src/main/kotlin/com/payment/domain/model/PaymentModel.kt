@@ -1,6 +1,6 @@
 package com.payment.domain.model
 
-import com.payment.application.enums.Period
+import com.payment.domain.service.period.Period
 import java.math.BigDecimal
 import java.time.LocalDateTime
 import javax.persistence.*

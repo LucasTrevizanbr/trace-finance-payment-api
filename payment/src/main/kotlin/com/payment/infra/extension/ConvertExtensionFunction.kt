@@ -1,10 +1,10 @@
-package com.payment.application.extension
+package com.payment.infra.extension
 
 import com.payment.application.controller.request.MakePaymentRequest
 import com.payment.application.controller.request.PostWalletRequest
 import com.payment.application.controller.response.WalletLimitResponseDTO
 import com.payment.application.controller.response.CreateWalletResponseDTO
-import com.payment.application.enums.Period
+import com.payment.domain.service.period.Period
 import com.payment.domain.model.PaymentModel
 import com.payment.domain.model.WalletModel
 import java.time.*

@@ -1,4 +1,4 @@
-package com.payment.application.enums
+package com.payment.domain.service.period
 
 import java.math.BigDecimal
 
