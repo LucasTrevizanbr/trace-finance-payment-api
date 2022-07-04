@@ -15,7 +15,7 @@ class PeriodDefinitionServiceTest{
     @Test
     fun `should get the DAYTIME period`(){
         var zoneId = "America/Sao_Paulo"
-        var weekDate = LocalDate.of(2022,7,1)
+        var weekDate = LocalDate.of(2022,7,5)
         var dateTimeNow = LocalDateTime.of(weekDate, LocalTime.of(17, 59, 59))
 
         periodDefinitionService = PeriodDefinitionService(zoneId,dateTimeNow )
@@ -28,7 +28,7 @@ class PeriodDefinitionServiceTest{
     @Test
     fun `should get the NIGHTLY period`(){
         var zoneId = "America/Sao_Paulo"
-        var weekDate = LocalDate.of(2022,7,1)
+        var weekDate = LocalDate.of(2022,7,5)
         var dateTimeNow = LocalDateTime.of(weekDate, LocalTime.of(18, 0,0))
 
         periodDefinitionService = PeriodDefinitionService(zoneId,dateTimeNow )

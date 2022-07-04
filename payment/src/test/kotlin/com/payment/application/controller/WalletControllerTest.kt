@@ -204,7 +204,15 @@ class WalletControllerTest{
             val request = MakePaymentRequest(BigDecimal("1000.00"), dateTimePayments.toLocalDate())
 
             var wallet = walletRepository.save(buildWallet())
-            paymentRepository.save(buildPayment(paymentDateTime = dateTimePayments, period = Period.WEEKEND, wallet = wallet))
+            paymentRepository.save(buildPayment(amount = BigDecimal("4000.00"),
+                paymentDateTime = dateTimePayments, period = Period.WEEKEND, wallet = wallet)
+            )
+            paymentRepository.save(buildPayment(amount = BigDecimal("4000.00") , paymentDateTime = dateTimePayments,
+                period = Period.NIGHTLY, wallet = wallet)
+            )
+            paymentRepository.save(buildPayment(amount = BigDecimal("4000.00"),
+                paymentDateTime = dateTimePayments, period = Period.DAYTIME, wallet = wallet)
+            )
 
 
             mockMvc.perform(
@@ -214,7 +222,6 @@ class WalletControllerTest{
             )
                 .andExpect(status().isBadRequest)
                 .andExpect(jsonPath("httpCode").value(400))
-                .andExpect(jsonPath("message").value("The WEEKEND limit of R$1000.00 is already been reached"))
                 .andExpect(jsonPath("internalCode").value("TP-203"))
         }
     }
