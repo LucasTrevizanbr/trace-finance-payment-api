@@ -9,15 +9,23 @@ A API tem como propósito controlar pagamentos para uma carteira, aplicando regr
 
 A api foi construída com kotlin em conjunto com varios projetos do framework Spring, 
 
+<h1 align="center">📌 Documentação </h1>
+
+# Importante:
+Devido a natureza da aplicação precisar lidar com horários diferentes é necessário testa-la de uma certa maneira. Para que fique claro os passos eu
+coloquei uma documentação detalhada de testes na pasta documentação/teste, por favor siga ela para conseguir testar todos os cenários funcionalmente.
+
+Além da documentação de testes, também adicionei documentações importantes sobre o projeto como um todo, são elas:
+- Payments-containers : Aqui eu dou uma visão sobre como roda o ambiente da aplicação de maneira conteinerizada e explico como funciona os arquivos docker da aplicação
+- Payments-Visão arquitetural: Aqui eu comento sobre as decisões de arquitetura da aplicação e estrutura de pacotes, aplicando um pouco de DDD
+- Payments-Uma visão mais precisa: Aqui eu falo sobre o código core das funcionalidades, lógicas implementadas, validações, padrão utilizado etc..
+
+</div>
 <h1 align="center"> 💻 Requisitos de inicialização do projeto</h1>
 
-Essas instruções permitirão que você obtenha uma cópia do projeto em operação na sua máquina local para fins de desenvolvimento.
-
-Consulte *Implantação* para saber como implantar o projeto.
+Com esses comandos você consegue utilizar o projeto em ambiente conteinerizado.
 
 ### 📋 Pré-requisitos
-
-Para rodar a aplicação é altamente recomendado usar o docker. Portanto você precisa de:
 
 - [Docker](https://docs.docker.com/desktop/windows/install/)
 - [docker-compose](https://docs.docker.com/compose/install/)
@@ -55,10 +63,4 @@ Se tudo deu certo no processo de construção dos containers, você irá ver uma
 
 se tiver usando o windowns e possuir o docker desktop, então você precisa ver algo assim:
 ![image](https://user-images.githubusercontent.com/72326473/177079892-87259099-1ad6-443c-ad1c-1cb1f14d1d82.png)
-
-<h1 align="center">📌 Documentação </h1>
-Além do Swagger, eu tomei a liberdade de criar algumas documentações a respeito do projeto. Decisões sobre arquitetura, implementações, ideia da API, um pouco sobre docker e alguns quesitos técnicos do desenvolviemnto. Basta acessar a pasta "documentação", lá contém os seguintes tópicos abordados:
-
-</div>
-
 
