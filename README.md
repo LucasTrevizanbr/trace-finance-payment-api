@@ -27,6 +27,7 @@ Com esses comandos você consegue utilizar o projeto em ambiente conteinerizado.
 
 ### 📋 Pré-requisitos
 
+- [JDK 17 ou superior] (https://www.oracle.com/java/technologies/downloads/#java17)
 - [Docker](https://docs.docker.com/desktop/windows/install/)
 - [docker-compose](https://docs.docker.com/compose/install/)
 
