@@ -9,7 +9,7 @@ import org.springframework.test.context.ActiveProfiles
 
 
 @SpringBootTest
-@ActiveProfiles("dev")
+@ActiveProfiles("test")
 class PaymentApplicationTests(
     @Autowired val walletController: WalletController
 ){

@@ -26,6 +26,7 @@ fun MakePaymentRequest.toPaymentModel(period: Period, brazilTime: LocalTime): Pa
     )
 }
 
+
 fun WalletModel.toResponse(): CreateWalletResponseDTO {
     return CreateWalletResponseDTO(
         id = this.id,

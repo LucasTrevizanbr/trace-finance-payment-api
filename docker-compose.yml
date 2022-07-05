@@ -21,6 +21,7 @@ services:
         context: ./payment
         dockerfile: ./Dockerfile
       image: payment_api
+      container_name: payment_api
       ports:
         - 8080:8080
       networks:
@@ -34,6 +35,9 @@ services:
         - db
       depends_on:
         - db  
+      volumes:
+        - "/etc/timezone:/etc/timezone:ro"
+        - "/etc/localtime:/etc/localtime:ro"
      
 networks:
   trace_network:
